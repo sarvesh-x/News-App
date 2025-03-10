@@ -28,7 +28,7 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=06558b23e9c64b9696afccab8107663b&page=1&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=06558b23e9c64b9696afccab8107663b&page=1&pageSize=${this.props.pageSize}`;
     this.state.loading
       ? this.setState({ loading: true })
       : this.setState({ loading: false });
@@ -44,7 +44,9 @@ export class News extends Component {
   }
 
   handlePrevClick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      this.props.country
+    }&category=${
       this.props.category
     }&apiKey=06558b23e9c64b9696afccab8107663b&page=${
       this.state.page - 1
@@ -62,7 +64,9 @@ export class News extends Component {
   handleNextClick = async () => {
     if (this.state.page + 1 > Math.ceil(this.state.totalResults / 10)) {
     } else {
-      let url = `https://newsapi.org/v2/top-headlines?country=us&category=${
+      let url = `https://newsapi.org/v2/top-headlines?country=${
+        this.props.country
+      }&category=${
         this.props.category
       }&apiKey=06558b23e9c64b9696afccab8107663b&page=${
         this.state.page + 1
@@ -105,6 +109,9 @@ export class News extends Component {
                         : "https://mamatafertility.com/wp-content/themes/consultix/images/no-image-found-360x250.png"
                     }
                     newsUrl={element.url}
+                    publishedAt={element.publishedAt}
+                    author={element.author ? element.author : "Unknown"}
+                    source={element.source}
                   />
                 </div>
               );
